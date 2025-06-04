@@ -1,0 +1,49 @@
+#include<stdio.h>
+#define MAX 10
+#define INF 999
+void dijkstra(int cost[MAX][MAX],int n,int source,int distance[MAX]){
+int visited[MAX];
+int i,j,u,min;
+for(i=1;i<=n;i++){
+distance[i]=cost[source][i];
+visited[i]=0;
+}
+visited[source]=1;
+for(i=1;i<n;i++){
+min=INF;
+u=-1;
+for(j=1;j<=n;j++){
+if(!visited[j]&&distance[j]<min){
+min=distance[j];
+u=j;
+}
+}
+visited[u]=1;
+for(j=1;j<=n;j++){
+if(!visited[j]&&distance[u]+cost[u][j]<distance[j]){
+distance[j]=distance[u]+cost[u][j];
+}
+}
+}
+}
+int main(){
+int cost[MAX][MAX],distance[MAX];
+int i,j,source,n;
+printf("Enter the number of vertices:");
+scanf("%d",&n);
+printf("Enter the cost adjacency matrix (use %d for INF):\n",INF);
+for(i=1;i<=n;i++){
+for(j=1;j<=n;j++){
+scanf("%d",&cost[i][j]);
+}
+}
+printf("Enter the source vertex (1 to %d ):\n",n);
+scanf("%d",&source);
+dijkstra(cost,n,source,distance);
+printf("\n Shortest distance from vertex %d:\n",source);
+for(i=1;i<=n;i++){
+printf("To vertex %d = %d\n",i , distance[i]);
+}
+return 0;
+}
+
