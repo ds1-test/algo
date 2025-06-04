@@ -1,0 +1,40 @@
+#include<stdio.h>
+#define INF 999
+int min(int a,int b){
+return(a<b?a:b);
+}
+void floydWarshall(int dist[][10],int n){
+for(int k=0;k<n;k++){
+for(int i=0;i<n;i++){
+for(int j=0;j<n;j++){
+if(dist[i][k]+dist[k][j]<dist[i][j]){
+dist[i][j]=dist[i][k]+dist[k][j];
+}
+}
+}
+}
+}
+int main(){
+int cost[10][10],n;
+printf("Enter the number of verices:");
+scanf("%d",&n);
+printf("Enter the cost adjacency matrix(use%d for INF):\n",INF);
+for(int i=0;i<n;i++){
+for(int j=0;j<n;j++){
+scanf("%d",&cost[i][j]);
+}
+}
+floydWarshall(cost,n);
+printf("All pair shortesr path matrix:\n");
+for(int i=0;i<n;i++){
+for(int j=0;j<n;j++){
+if(cost[i][j]==INF)
+printf("INF");
+else
+printf("%3d",cost[i][j]);
+}
+printf("\n");
+}
+return 0;
+}
+
